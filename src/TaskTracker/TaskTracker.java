@@ -26,8 +26,6 @@ public class TaskTracker {
         5. if input = 0 --> finish the program
          */
 
-        //что если массив фиксированный, пересмотреть презы и value/ref type
-
         while (true) {
             showMenu();
             int userInput = getUserInput();
