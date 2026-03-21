@@ -5,6 +5,7 @@ package TaskTracker;
  динамическим ArrayList
  static Task[] tasks1 = new Task[10];
  static int taskCount = 0;
+
 */
 
 import java.util.ArrayList;
