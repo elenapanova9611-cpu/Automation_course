@@ -1,5 +1,5 @@
 //Rework for example
-package Homework;
+package homework;
 
 import java.util.Scanner;
 
