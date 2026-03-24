@@ -4,14 +4,14 @@ package homework;
 import java.util.Scanner;
 
 public class Task1 {
-
     public static void main(String[] args) {
-        int score = -1;
-        while (isValidScore(score)) {
+        int score;
+        Scanner scanner = new Scanner(System.in);
+        do {
             System.out.println("Please enter your score: ");
-            score = new Scanner(System.in).nextInt();
+            score = scanner.nextInt();
 
-            if (isValidScore(score)) {
+            if (isInvalidScore(score)) {
                 System.out.println("Your input is incorrect.");
                 continue;
             }
@@ -26,13 +26,13 @@ public class Task1 {
                 System.out.println("Your grade is D!");
             } else if (score >= 50) {
                 System.out.println("Your grade is E!");
-            } else if (score >= 0) {
+            } else {
                 System.out.println("Your grade is F!");
             }
-        }
+        } while (isInvalidScore(score));
     }
 
-    private static boolean isValidScore(int score) {
+    private static boolean isInvalidScore(int score) {
         return score < 0 || score > 100;
     }
 }
