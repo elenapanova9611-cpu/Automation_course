@@ -5,11 +5,13 @@ public class Task {
     private String name;
     private String description;
     private int priority;
+    private Status status;
 
-    public Task(String name, String description, int priority) {
+    public Task(String name, String description, int priority, Status status) {
         this.name = name;
         this.description = description;
         this.priority = priority;
+        this.status = status;
     }
 
     public String getName() {
@@ -22,5 +24,9 @@ public class Task {
 
     public int getPriority() {
         return priority;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }
