@@ -29,4 +29,9 @@ public class Task {
     public Status getStatus() {
         return status;
     }
+
+    public String getInfo() {
+        return String.format("Info about the task: \nTitle: %s \nDescription: %s \nPriority: %d \nStatus: %s\n",
+                name, description, priority, status);
+    }
 }

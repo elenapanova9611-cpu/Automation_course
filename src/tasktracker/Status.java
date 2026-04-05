@@ -16,7 +16,8 @@ public enum Status {
         }
     }
 
-    public String convertToString() {
+    @Override
+    public String toString() {
         return switch (this) {
             case OPEN -> "Open";
             case IN_PROGRESS -> "In Progress";

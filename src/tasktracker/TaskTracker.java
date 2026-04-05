@@ -1,12 +1,5 @@
 package tasktracker;
 
-/*
- Изначально было решение через просто массив размером на 10 элементов, но с ним работать не так удобно, как с
- динамическим ArrayList
- static Task[] tasks1 = new Task[10];
- static int taskCount = 0;
-
-*/
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -97,21 +90,20 @@ public class TaskTracker {
 
     public static void printAllTasks() {
         for (Task task : tasks) {
-            System.out.printf("Info about the task: \nTitle: %s \nDescription: %s \nPriority: %d \nStatus: %s",
-                    task.getName(), task.getDescription(), task.getPriority(), task.getStatus().convertToString());
+            System.out.printf(task.getInfo());
         }
     }
 
     public static String getDataForFileWriter(Task task) {
         return String.format("%s/%s/%d/%s", task.getName(), task.getDescription(), task.getPriority(),
-                task.getStatus().convertToString());
+                task.getStatus());
     }
 
     public static void writeTasksToFile() throws IOException {
-        try (FileWriter fileWriter = new FileWriter("/Users/alenap/tasks.txt", false)) {
+        FileWriter fileWriter = new FileWriter("/Users/alenap/tasks.txt", false);
             for (Task task : tasks) {
                 fileWriter.write(getDataForFileWriter(task) + "\n");
             }
+            fileWriter.close();
         }
     }
-}
