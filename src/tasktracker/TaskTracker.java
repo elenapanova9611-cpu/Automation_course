@@ -30,17 +30,20 @@ public class TaskTracker {
 
         while (true) {
             showMenu();
-            int userInput = getUserInput();
-            if (userInput == 1) {
-                Task task = createTask();
-                tasks.add(task);
-                writeTasksToFile();
-            } else if (userInput == 2) {
-                printAllTasks();
-            } else if (userInput == 0) {
-                break;
-            } else {
-                System.out.println("Invalid input. Please try again.");
+            ActionMenu action = ActionMenu.fromInt(getUserInput());
+            switch (action) {
+                case CREATE:
+                    tasks.add(createTask());
+                    writeTasksToFile();
+                    break;
+                case DISPLAY:
+                    printAllTasks();
+                    break;
+                case EXIT:
+                    return;
+                case UNKNOWN:
+                    System.out.println("Invalid input. Please try again.");
+                    break;
             }
         }
     }
