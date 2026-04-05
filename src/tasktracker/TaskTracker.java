@@ -71,13 +71,15 @@ public class TaskTracker {
         System.out.println("3. Task priority");
 
         int taskPriority = 0;
-        try {
-            taskPriority = userInput.nextInt();
-            userInput.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("You should enter a number");
-            userInput.nextLine();
-        }
+        do {
+            try {
+                taskPriority = userInput.nextInt();
+                userInput.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("You should enter a number");
+                userInput.nextLine();
+            }
+        } while (taskPriority == 0);
 
         Status taskStatus;
         do {
@@ -101,9 +103,9 @@ public class TaskTracker {
 
     public static void writeTasksToFile() throws IOException {
         FileWriter fileWriter = new FileWriter("/Users/alenap/tasks.txt", false);
-            for (Task task : tasks) {
-                fileWriter.write(getDataForFileWriter(task) + "\n");
-            }
-            fileWriter.close();
+        for (Task task : tasks) {
+            fileWriter.write(getDataForFileWriter(task) + "\n");
         }
+        fileWriter.close();
     }
+}
