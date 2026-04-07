@@ -1,6 +1,7 @@
 package tasktracker;
 
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +9,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TaskTracker {
-    static ArrayList<Task> tasks = new ArrayList<Task>();
+    static final String FILE_PATH = "/Users/alenap/tasks.txt";
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
           /*
@@ -26,8 +28,10 @@ public class TaskTracker {
             1a. Причесать строку, которую юзер вводит
         2. Создать метод, который переводит значение enum в строку
         3. Если юзер неверно ввел статус --> попросить снова
+        4. читаем строку и из строки делаем массив подстрок и из этого фоормируем объект
          */
 
+        readTasksFromFile();
         while (true) {
             showMenu();
             ActionMenu action = ActionMenu.fromInt(getUserInput());
@@ -105,10 +109,42 @@ public class TaskTracker {
     }
 
     public static void writeTasksToFile() throws IOException {
-        FileWriter fileWriter = new FileWriter("/Users/alenap/tasks.txt", false);
+        FileWriter fileWriter = new FileWriter(FILE_PATH, false);
         for (Task task : tasks) {
             fileWriter.write(getDataForFileWriter(task) + "\n");
         }
         fileWriter.close();
+    }
+
+    public static void readTasksFromFile() throws IOException {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return;
+        }
+
+        tasks.clear();
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+
+                String[] substrings = line.split("/");
+
+                String taskName = substrings[0];
+                String taskDescription = substrings[1];
+                int taskPriority = Integer.parseInt(substrings[2]);
+                Status status = Status.makeFromUserInput(substrings[3]);
+
+                if (status == null) {
+                    continue;
+                }
+
+                Task task = new Task(taskName, taskDescription, taskPriority, status);
+                tasks.add(task);
+            }
+        }
     }
 }
